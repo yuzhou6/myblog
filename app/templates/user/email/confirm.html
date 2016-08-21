@@ -1,0 +1,9 @@
+<p>亲爱的 {{ user.username }},</p>
+
+<p>欢迎加入知乎！</p>
+
+<p>为了验证你的账号，请点击下面的链接激活你的账号:</p>
+
+<p>{{ url_for('users.confirm', token = token, _external = True) }}</p>
+
+<p>感谢你的注册，来自知乎管理员 lucat</p>
