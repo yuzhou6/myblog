@@ -3,6 +3,7 @@
 from . import users
 from flask import render_template, flash, redirect, url_for
 from forms import RegistrationForm, LoginForm
+from flask_login import login_user, logout_user, login_required, current_user
 from ..models import User
 from .. import db
 from ..email import send_email
@@ -31,4 +32,5 @@ def login():
 
 @users.route('/')
 def index():
-    return "<h2 style='color:red'> Boy </h2>"
+    return render_template("base.html")
+    # return render_template("login.html")

@@ -1,6 +1,6 @@
 #coding:utf-8
 
-from flask import Flask, render_template
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from config import config
@@ -13,7 +13,7 @@ mail = Mail()
 login_manager = LoginManager()
 
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'users.login'
+login_manager.login_view = 'users.register'
 
 def create_app(config_name):
     app = Flask(__name__)
