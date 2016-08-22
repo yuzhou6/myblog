@@ -13,7 +13,7 @@ mail = Mail()
 login_manager = LoginManager()
 
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'users.register'
+login_manager.login_view = 'users.login'
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -31,5 +31,9 @@ def create_app(config_name):
     # users 蓝图注册
     from .users import users as users_blueprint
     app.register_blueprint(users_blueprint, url_prefix = '/user')
+
+    # main 蓝图注册
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
     return app

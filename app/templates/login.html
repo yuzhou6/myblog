@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1 style="color: blue;"> whati idfsdfs </h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} 登陆界面 {% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+    <div class="col-md-9">
+{#        {% if not current_user.is_authenticated() %}#}
+            {{ wtf.quick_form(form) }}
+{#        {% endif %}#}
+    </div>
+{% endblock %}

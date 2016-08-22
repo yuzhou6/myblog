@@ -7,4 +7,78 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/default.css') }}">#}
+{% endblock %}
+
+{% block navbar %}
+    <nav id="web-navbar-left" class="navbar nav-stacked navbar-default g-navbar-box " >
+        <div class="navbar-header">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a target="_self" title="" class="navbar-brand" style="font-size: 14px;">我的博客</a>
+        </div>
+    <div class="">
+        <ul id="" class="nav navbar-nav">
+            <li class="menu-item">
+                <a title="查看网站首页页面的内容" target="_self" href="/" class="menu-item-link">网站首页</a>
+            </li>
+            <li class="menu-item">
+                <a title="查看生活点滴分类下的文章" target="_self" href="/" class="menu-item-link">生活点滴</a>
+                <ul class="dropdown-menu bounceOutDown animated">
+                    <li><a title="查看生活琐事分类下的文章" target="_self" href="/topics/life/trivia">生活琐事</a></li>
+                    <li><a title="查看生活随笔分类下的文章" target="_self" href="/topics/life/diary">生活随笔</a></li>
+                    <li><a title="查看杂乱文档分类下的文章" target="_self" href="/topics/life/uncategorized">杂乱文档</a></li>
+                    <li><a title="查看文章存档页面的内容" target="_self" href="/archives">文章存档</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a title="查看关于苏洋页面的内容" target="_self" href="/about" class="menu-item-link">关于博主</a>
+                <ul class="dropdown-menu bounceIn">
+                    <li><a title="查看阅读列表页面的内容" target="_self" href="/booklist">阅读列表</a></li>
+                    <li><a title="查看设计草图分类下的文章" target="_self" href="/topics/about/my-design">设计草图</a></li>
+                    <li><a title="查看学习总结分类下的文章" target="_self" href="/topics/about/my-summary">学习总结</a></li>
+                    <li><a title="查看我的作品页面的内容" target="_self" href="/my-works">我的作品</a></li>
+                </ul></li>
+            <li class="menu-item">
+                <a title="查看学习点滴分类下的文章" target="_self" href="/topics/knowledge" class="menu-item-link">学习点滴</a>
+                <ul class="dropdown-menu bounceOutDown animated">
+                    <li><a title="查看前端积累分类下的文章" target="_self" href="/topics/knowledge/frontend-knowledge">前端积累</a></li>
+                    <li><a title="查看后端脚本分类下的文章" target="_self" href="/topics/knowledge/backend-knowledge">后端脚本</a></li>
+                    <li><a title="查看桌面开发分类下的文章" target="_self" href="/topics/knowledge/desktop-knowledge">桌面开发</a></li>
+                    <li><a title="查看系统相关分类下的文章" target="_self" href="/topics/knowledge/system-knowledge">系统相关</a></li>
+                    <li><a title="查看资料收集分类下的文章" target="_self" href="/topics/knowledge/reference-room">资料收集</a></li>
+                </ul></li>
+            <li class="menu-item"><a title="查看资源分享分类下的文章" target="_self" href="/topics/share" class="menu-item-link">资源分享</a>
+                <ul class="dropdown-menu bounceOutDown animated">
+                    <li><a title="查看媒体资源分类下的文章" target="_self" href="/topics/share/media">媒体资源</a></li>
+                    <li><a title="查看实用技巧分类下的文章" target="_self" href="/topics/share/tips">实用技巧</a></li>
+                    <li><a title="查看经典软件分类下的文章" target="_self" href="/topics/share/software">经典软件</a></li>
+                    <li><a title="查看休闲一刻分类下的文章" target="_self" href="/topics/share/leisure-moment">休闲一刻</a></li>
+                    <li><a title="查看历史尘埃分类下的文章" target="_self" href="/topics/share/past-records">历史尘埃</a></li>
+                </ul></li>
+            <li class="menu-item"><a title="查看友情链接页面的内容" target="_self" href="/links" class="menu-item-link">友情链接</a></li>
+            <li class="menu-item"><a title="查看给我留言页面的内容" target="_self" href="/contact" class="menu-item-link">给我留言</a></li>
+        </ul></div>
+
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class='col-md-9 col-sm-9'>
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block page_content %}{% endblock %}
+</div>
 {% endblock %}

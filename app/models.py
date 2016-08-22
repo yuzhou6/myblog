@@ -1,6 +1,6 @@
-#coding:utf-8
+#! -*- coding: utf-8 -*-
 
-import hashlib
+from . import login_manager
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -26,14 +26,17 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
     name = db.Column(db.String(64))
-    password_hash = db.Column(db.String(18))
+    password_hash = db.Column(db.String(128))
     email = db.Column(db.String(64), unique=True, index=True)
     confirmed = db.Column(db.Boolean, default=False)    #用户认证
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)    #注册时间
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)       #最后登陆时间
+    phone = db.Column(db.String(64), unique=True, index=True)           #电话认证
 
+    # about_me = db.Column(db.Text())
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
+    #若试图读取密码的属性，则会返回错误
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
@@ -45,9 +48,27 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def generate_confirmtion_token(self, expiration = 3600):
+    #获取认证散列
+    def generate_confirmation_token(self, expiration = 3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'confirm': self.id})        # 由用户 id 生成的密令
+
+    #判断是否认证函数
+    def confirm(self,token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        db.session.commit()
+        return True
+
+    def __repr__(self):
+        return "<User %r , %r>" % (self.username, self.email)
 
 """
     角色表
@@ -87,6 +108,11 @@ class Role(db.Model):
             role.default = roles[r][1]          #roles 字典中的默认值， 即设定谁为默认值
             db.session.add(role)
         db.session.commit()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 
