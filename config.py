@@ -7,6 +7,7 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ZHIHU_MAIL_SUBJECT_PREFIX = '[ZHIHU]'
+    PHONE_API_KEY =  os.environ.get('PHONE_API_KEY')
 
     #y邮箱参数
     MAIL_SERVER = 'smtp.qq.com'

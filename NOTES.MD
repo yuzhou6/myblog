@@ -52,6 +52,13 @@ export ZHIHU_CONFIG=production
 1. 踩的坑 
     - 登录需要 login_required 的， 先得 login_user(user) 
     - python
+    -     if form.validate_on_submit and session['code'] == form.validate_code.data:
+            要是一个 form.validate_on_submit 就得加括号 form.validate_on_submit()
+    - 多表查询 
+    -        u = User.query.filter(or_(User.username == 'we1i', User.phone == '18166384184')).first()
+    - 使用 {{ form.password() }} 得 加上  {{ form.csrf_token() }}
+    
+    
 
  
     

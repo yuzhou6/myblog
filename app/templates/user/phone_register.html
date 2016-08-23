@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %} 短信发送 {% endblock %}
+
+{% block page_content %}
+    <div>
+        <form action="/user/phone-register" method="post" class="form-group">
+            <div style="display: none" class="form-group">
+                {{ form.csrf_token() }}
+            </div>
+            <div class="form-group col-md-8">
+              手机号:  {{ form.phone(id = 'phone')  }}
+            </div>
+            <div class="form-group col-md-8">
+                验证码: {{ form.validate_code(id = 'code',style="display: inline") }}
+                <input type="button" id="btn" class="btn btn-success" value="获取验证码" onclick="settime(this)" />
+            </div>
+            <div class="form-group col-md-8">
+                密码: {{ form.password()  }}
+            </div>
+            <div class="form-group col-md-8">
+                确认密码: {{ form.password2()  }}
+            </div>
+            <div class="form-group col-md-8">
+                {{ form.submit(class ='btn btn-default')  }}
+            </div>
+        </form>
+    </div>
+
+    <script type="application/javascript">
+
+        var countdown=60;
+
+        function settime(obj) {
+            if (countdown == 0) {
+                obj.removeAttribute("disabled");
+                obj.value="免费获取验证码";
+                countdown = 60;
+                return;
+            } else {
+                obj.setAttribute("disabled", true);
+                obj.value="重新发送(" + countdown + ")";
+                if (countdown == 60)
+                    get_code()
+                countdown--;
+            }
+        setTimeout(function() {
+            settime(obj) }
+            ,1000)
+        }
+
+        function get_code (){
+            var phone = $("#phone").val()
+            $.ajax({
+                url:'/user/phone-register-code',
+                data: {'phone':phone},
+                dataType: 'json',
+                success:function (data) {
+                    // 本身就是 json 数据了 ，就不用 Json.Parse
+{#                    alert('验证码已经发送到' + data.phone + ' 验证码是'+ data.code)#}
+                }
+            })
+        }
+
+    </script>
+{% endblock %}

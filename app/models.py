@@ -67,6 +67,10 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
+    #得到电话号码
+    # def generate_confirmation_phone_code(self):
+    #     #调用号码
+
     def __repr__(self):
         return "<User %r , %r>" % (self.username, self.email)
 

@@ -6,8 +6,9 @@
 {% block page_content %}
     {{ super() }}
     <div class="col-md-9">
-{#        {% if not current_user.is_authenticated() %}#}
-            {{ wtf.quick_form(form) }}
-{#        {% endif %}#}
+        {{ wtf.quick_form(form) }}
+    </div>
+    <div class="col-md-2">
+        <a href="{{ url_for('users.phone_register') }}" class="btn btn-default">注册</a>
     </div>
 {% endblock %}
