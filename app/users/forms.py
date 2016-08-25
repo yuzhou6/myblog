@@ -45,5 +45,5 @@ class LoginForm(Form):
     login_name = StringField(u'用户名', validators=[DataRequired(), Length(1,64)])
     passowrd = PasswordField(u'密码', validators=[DataRequired()])
     remember_me = BooleanField(u'保持登陆')
-    submit = SubmitField(u'注册')
+    submit = SubmitField(u'登录')
 

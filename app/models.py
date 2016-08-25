@@ -6,7 +6,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 
 """
     权限类
@@ -35,6 +35,33 @@ class User(UserMixin, db.Model):
 
     # about_me = db.Column(db.Text())
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    posts = db.relationship('Post', backref='author' ,lazy='dynamic')
+
+
+    #刷新用户的访问时间
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+        db.session.commit()
+
+    #检查角色的权限
+    def can(self, permissions):
+        return self.role is not None and \
+                (self.role.permissions & permissions) == permissions
+
+    #检查是否是管理员
+    def id_administrator(self):
+        return self.can(Permission.ADMINISTER)
+
+    #设置默认角色
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.role is None:
+            if self.email == current_app.config['ZHIHU_ADMIN']:
+                self.role = Role.query.filter_by(permissions=0xff).first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
 
     #若试图读取密码的属性，则会返回错误
     @property
@@ -67,10 +94,6 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    #得到电话号码
-    # def generate_confirmation_phone_code(self):
-    #     #调用号码
-
     def __repr__(self):
         return "<User %r , %r>" % (self.username, self.email)
 
@@ -84,7 +107,10 @@ class Role(db.Model):
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)     #对应 1, 2， 3， 等权限
 
-    users = db.relationship('User', backref='role')
+    users = db.relationship('User', backref='role', lazy='dynamic')
+
+    def __repr__(self):
+        return "<Role %r>" % self.name
 
     @staticmethod
     def insert_roles():
@@ -111,8 +137,32 @@ class Role(db.Model):
             role.permissions = roles[r][0]      #roles 字典中的权限
             role.default = roles[r][1]          #roles 字典中的默认值， 即设定谁为默认值
             db.session.add(role)
-        db.session.commit()
+            db.session.commit()
 
+"""
+文章列表
+"""
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    title = db.Column(db.String(128))
+    # Category = db.Column(db.String(64))
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True,default=datetime.utcnow)      # 发表时间
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    body_html = db.Column(db.Text)
+
+"""
+用户权限类
+"""
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_administator(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser
 
 @login_manager.user_loader
 def load_user(user_id):

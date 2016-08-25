@@ -67,11 +67,16 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         # user = User.query.filter_by(email = form.email.data).first()
-        user = User.query.filter(or_(User.username == form.login_name.data, User.phone == form.login_name.data)).first()
+        user = User.query.filter(or_(User.username == form.login_name.data, User.phone == form.login_name.data ,User.email == form.login_name.data)).first()
         if user is not None and user.verify_password(form.passowrd.data):
             login_user(user)
             return redirect(request.args.get('next') or url_for('main.index'))
     return render_template('login.html', form = form)
+
+@users.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('main.index'))
 
 @users.route('/confirm/<token>')
 @login_required

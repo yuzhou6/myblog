@@ -26,6 +26,8 @@ export ZHIHU_CONFIG=production
             
 9. python manage.py db migrate 改变不了字段长度
 10. 修改字段长度 alter table user modify column name varchar(50) ;
+11. backref='post', lazy='dynamic' 是什么意思
+12. $('').attr('value','') 设置 textarea 的值不得行， 用 $('').val('这里是你的值') 才得行 
 
 -----
    
@@ -57,7 +59,23 @@ export ZHIHU_CONFIG=production
     - 多表查询 
     -        u = User.query.filter(or_(User.username == 'we1i', User.phone == '18166384184')).first()
     - 使用 {{ form.password() }} 得 加上  {{ form.csrf_token() }}
-    
+    - url_for 接的是 视图路由 render_template 接的是 模板下的网页
+
+2. 在 Class Role 中
+    - 这么一句话     users = db.relationship('User', backref='role', lazy='dynamic') 表示引引接到 User 表中，只要 User 表的对象
+    举个例子， u = User.query.filter_by(username = 'wei').first() 得奥一个 User类的对象 u.role 那么就会得到之前的 根据 role_id 这个在 User 类外键中的 Role 的所有信息
+    说白了， 先在 User 类中建立一个外键， 生命连到 Role ,接着在 Role 里面，特有的 声明歌 User 类同过这个方法，可用之间调用 Role 类属性的东西
+    users = db.relationship('User', backref='role', lazy='dynamic') 这个就应运而生了
+    - 而反过来， 在 Role 表中，我们只要通过 r = Role.query.filter_by(name = 'Administator').first()
+    那么 这个 r 就是所有的， 属性name 为 "Administrator" 的 User 集合，这是一个集合，所以想取得其中的每一歌个值，我们得遍历
+    for u in r.users:
+        print u.phone 
+        
+3. - 数据库需要真正的用户对象,因此要调用 _get_current_object() 方法
+   
+   
+   
+ 
     
 
  
