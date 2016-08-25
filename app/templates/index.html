@@ -2,5 +2,29 @@
 
 {% block title %} 首页 {% endblock %}
 
-
-
+{% block page_content %}
+    <div class="col-md-12">
+        <p class="web-content-title">推荐阅读</p>
+        <hr style="margin: 0px;padding: 10px 0 0 0;"/>
+    </div>
+    {%  for post in posts %}
+        <div class="col-md-12 post-hover">
+        <div class="web-article">
+            <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
+            <div class="meta-box">
+                <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
+                <span class="m-post-coments"><i class="fa fa-comments"></i> 26 评论</span>
+            </div>
+            <div class="post-expect">
+                <p>{{ post.post_expect }}</p>
+            </div>
+            <div class="meta-box">
+                <span class="m-post-cat"><i class="fa fa-navicon"></i>
+                    分类:{{ post.category }}
+                </span>
+                <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

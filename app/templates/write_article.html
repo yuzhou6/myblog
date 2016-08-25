@@ -6,10 +6,6 @@
 {% block head %}
     {{ super() }}
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit/css/editormd.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit/css/editormd.logo.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit/css/editormd.preview.min.css') }}">
-
     <script src="{{ url_for('static', filename='edit/editormd.min.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='edit/code-block-dialog.js') }}" type="text/javascript"></script>
     <script src="{{ url_for('static', filename='edit/lib/flowchart.min.js') }}" type="text/javascript"></script>
@@ -27,8 +23,8 @@
             height : 640,
             theme : "dark",
             codeFold : true,
-            syncScrolling : false,
-            htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+{#            syncScrolling : false,#}
+{#            htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启#}
             emoji : true,
             taskList : true,
             tocm            : true,         // Using [TOCM]
@@ -38,14 +34,21 @@
             imageUpload : true,
 
         });
+        editor.setToolbarAutoFixed(false);  // toolbar 自动调位 禁用
 
-        $('#bca').click(function () {
+        $('#abc').click(function () {
             var msg = $('.editormd-preview').html()
 {#            var msg = $("#cd").val()#}
-            alert(msg)
-            $('#wei').html(msg)
+            $('#body_html').val(msg)
         })
-
+{##}
+{#            $('#a').click(function () {#}
+{#            alert("bbb")#}
+{#            var msg = $('.editormd-preview').html()#}
+{#            var msg = $("#cd").val()#}
+{##}
+{#            $('#body_html').val(msg)#}
+{#        })#}
     })
 
 
@@ -68,12 +71,9 @@
 
     </div>
 
-{#    <script>#}
-{#        document.getElementById('wei').innerHTML = marked('```python    def index():    return "hello "```')#}
-{#    </script>#}
-
-    <div class="col-md-12" style="margin-bottom: 20px;">
-        <form action="/post" method="post" class="form-group">
+{% if current_user.is_authenticated %}
+      <div class="col-md-12" style="margin-bottom: 20px;">
+        <form action="/write-article" method="post" class="form-group">
             <div style="display: none">
                 {{ form.csrf_token() }}
             </div>
@@ -84,19 +84,22 @@
             <div class="form-group" >
                 <label for="editormd">文章内容</label>
                 <div id="editormd">
-                    {{ form.body(id='body', class="editormd-markdown-textarea") }}
+                    {{ form.body(id='body') }}
                 </div>
             </div>
-             <div class="form-group" style="display: block">
+             <div class="form-group">
+                 {{ form.post_expect(id = 'post_expect', class='form-control', placeholder='文章摘要') }}
+            </div>
+             <div class="form-group" style="display: inline">
                 {{ form.submit(id='abc', class='btn btn-default') }}
+                 {{ form.category(id='catagory', class="btn btn-primary") }}
+            </div>
+            <div id="" style="display: none;">
+                {{ form.body_html(id='body_html') }}
             </div>
         </form>
-        <button class="btn btn-default" id="bca">点点</button>
     </div>
-
-
-
+{% endif %}
 {#    <button id ='a' class="btn btn-default">点</button>#}
-{##}
-
+    
 {% endblock %}

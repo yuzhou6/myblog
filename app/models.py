@@ -58,7 +58,7 @@ class User(UserMixin, db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.email == current_app.config['ZHIHU_ADMIN']:
+            if self.email == current_app.config['BLOG_ADMIN']:
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -146,12 +146,54 @@ class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True, index=True)
     title = db.Column(db.String(128))
-    # Category = db.Column(db.String(64))
     body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
+    post_expect = db.Column(db.Text)        # 文章预览
+    category_id = db.Column(db.Integer, db.ForeignKey('categorys.id'))
     timestamp = db.Column(db.DateTime, index=True,default=datetime.utcnow)      # 发表时间
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    body_html = db.Column(db.Text)
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
+
+"""
+文章评论表
+"""
+class Comment(db.Model):
+    __tablename__ = 'comment'
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    disabled = db.Column(db.Boolean)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+
+
+"""
+文章种类表
+"""
+class Category(db.Model):
+    __tablename__ = 'categorys'
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    category = db.Column(db.Unicode(128), unique=True)
+    post = db.relationship('Post',backref='category', lazy='dynamic')
+
+    def __repr__(self):
+        return " %s" % self.category     # 这句话也是搞笑
+
+    @staticmethod
+    def insert_categorys():
+        categorys = [
+            u'博客技术',
+            u'生活感悟',
+            u'默认分类'
+        ]
+        for c in categorys:
+            category = Category.query.filter_by(category = c).first()
+            if category is None:
+                category = Category(category = c)
+                db.session.add(category)
+                db.session.commit()
 """
 用户权限类
 """

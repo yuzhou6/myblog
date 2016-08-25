@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %} 我的文章 {% endblock %}
+
+{% block navbar_picture %}
+
+{% endblock %}
+
+{% block show_article %}
+    <div style="margin-left: 120px;">
+        <p class="web-content-title">
+            <span class="m-post-cat"><i class="fa fa-navicon"></i>
+                    {{ post.category }}
+                </span>
+        </p>
+        <hr style="margin: 0px;padding: 10px 0 0 0;width:95%"/>
+        <div class="web-article" style="width: 98%">
+            <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
+            <div class="meta-box">
+                <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
+                <span class="m-post-coments"><i class="fa fa-comments"></i> 26 评论</span>
+            </div>
+            <div class="">
+                {{ post.body_html | safe }}
+            </div>
+            <div class="meta-box">
+                <span class="m-post-cat"><i class="fa fa-navicon"></i>
+                    分类:{{ post.category }}
+                </span>
+                <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
+            </div>
+ 	        <div class="ds-thread" data-thread-key="" data-title="{{ post.title }}" data-url="{{ url_for('main.show_article', id = post.id, _external = True) }}">
+                
+            </div>
+        </div>
+
+    <!-- 多说评论框 start -->
+
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lucat-369"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0]
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+    <!-- 多说公共JS代码 end -->
+
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

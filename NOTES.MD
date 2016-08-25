@@ -2,8 +2,12 @@ export MAIL_SENDER=lucat369@qq.com &&
 export ZHIHU_ADMIN=lucat369@qq.com &&
 export MAIL_USERNAME=lucat369@qq.com &&
 export MAIL_PASSWORD=htxqjfrsvmkvdffc &&
-export DATABASE_URL=mysql://root:1234@localhost/zhihu &&
+export DATABASE_URL=mysql://root:1234@localhost/myblog &&
 export ZHIHU_CONFIG=production
+
+CREATE DATABASE myblog
+CHARACTER SET 'utf8'
+COLLATE 'utf8_general_ci';
 
 > 知乎笔记
 
@@ -28,6 +32,9 @@ export ZHIHU_CONFIG=production
 10. 修改字段长度 alter table user modify column name varchar(50) ;
 11. backref='post', lazy='dynamic' 是什么意思
 12. $('').attr('value','') 设置 textarea 的值不得行， 用 $('').val('这里是你的值') 才得行 
+13. 比较奇怪的地方 author = current_user._get_current_object()
+14. - def __repr__(self):
+        return " %s" % self.category     # 这句话也是搞笑
 
 -----
    
@@ -48,6 +55,9 @@ export ZHIHU_CONFIG=production
     - 在 {% blcok navbar %} 中是使用了 
 7. python manager.py db migrate 出现问题 alembic.util.exc.CommandError: Can't locate revision identified by '852aaf394ee6'
     - 进入数据库 use zhihu 接着 DROP TABLE alembic_version;
+8. mysqk 修改字段 alter table test change t_name t_name_new varchar(20);
+
+9. 明天加渐变属性
 
 ---
 

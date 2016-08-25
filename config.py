@@ -8,6 +8,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ZHIHU_MAIL_SUBJECT_PREFIX = '[ZHIHU]'
     PHONE_API_KEY =  os.environ.get('PHONE_API_KEY')
+    BLOG_ADMIN = 'w2816114368@163.com'  # 填管理员邮箱
 
     #y邮箱参数
     MAIL_SERVER = 'smtp.qq.com'
