@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %} 文章发表{% endblock %}
+{% block title %} 编辑文章 {% endblock %}
 
 {% block script %}
     {{ super() }}
@@ -41,14 +40,6 @@
 {#            var msg = $("#cd").val()#}
             $('#body_html').val(msg)
         })
-{##}
-{#            $('#a').click(function () {#}
-{#            alert("bbb")#}
-{#            var msg = $('.editormd-preview').html()#}
-{#            var msg = $("#cd").val()#}
-{##}
-{#            $('#body_html').val(msg)#}
-{#        })#}
     })
 
 
@@ -63,7 +54,7 @@
 
 {% if current_user.is_authenticated %}
       <div class="col-md-12" style="margin-bottom: 20px;">
-        <form action="/write-article" method="post" class="form-group">
+        <form action="/edit-article/{{ post.id }}" method="post" class="form-group">
             <div style="display: none">
                 {{ form.csrf_token() }}
             </div>
@@ -91,5 +82,5 @@
     </div>
 {% endif %}
 {#    <button id ='a' class="btn btn-default">点</button>#}
-    
+
 {% endblock %}

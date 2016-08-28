@@ -27,7 +27,6 @@ def create_app(config_name):
     mail.init_app(app)
     login_manager.init_app(app)
 
-
     # users 蓝图注册
     from .users import users as users_blueprint
     app.register_blueprint(users_blueprint, url_prefix = '/user')

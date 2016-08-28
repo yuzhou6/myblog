@@ -33,10 +33,19 @@ COLLATE 'utf8_general_ci';
 11. backref='post', lazy='dynamic' 是什么意思
 12. $('').attr('value','') 设置 textarea 的值不得行， 用 $('').val('这里是你的值') 才得行 
 13. 比较奇怪的地方 author = current_user._get_current_object()
-14. - def __repr__(self):
+14. def __repr__(self):
         return " %s" % self.category     # 这句话也是搞笑
 
------
+15. 路由灵活 
+    ```python
+    @main.route('/<hei>/2')
+    def hei(hie):
+    return "hei"   
+    ````
+   
+16. 
+     
+---
    
     报错汇总
    

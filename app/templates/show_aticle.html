@@ -18,7 +18,10 @@
             <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
             <div class="meta-box">
                 <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
-                <span class="m-post-coments"><i class="fa fa-comments"></i> 26 评论</span>
+                <span class="m-post-date"><i class="fa fa-user"></i> 作者：{{ post.author.username }}</span>
+                <span class="m-post-coments">
+                    <i class="fa fa-comments"><span class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></span></i>
+                </span>
             </div>
             <div class="">
                 {{ post.body_html | safe }}
@@ -28,9 +31,18 @@
                     分类:{{ post.category }}
                 </span>
                 <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
+
+                {% if current_user.is_authenticated %}
+                 <span class="m-post-sorts"><i class="fa fa-tags">
+                     <a style="color: #dd4814;" href="{{ url_for('main.edit_article', id = post.id ) }}">重新编辑</a>
+                 </i></span>
+                 <span class="m-post-sorts"><i class="fa fa-tags">
+                     <a style="color: #dd4814;" href="{{ url_for('main.delete_article', id = post.id ) }}">删除文章</a>
+                 </i></span>
+                {% endif %}
             </div>
- 	        <div class="ds-thread" data-thread-key="" data-title="{{ post.title }}" data-url="{{ url_for('main.show_article', id = post.id, _external = True) }}">
-                
+ 	        <div class="ds-thread" data-thread-key="{{ post.id }}" data-title="{{ post.title }}" data-url="{{ url_for('main.show_article', id = post.id, _external = True) }}">
+
             </div>
         </div>
 
