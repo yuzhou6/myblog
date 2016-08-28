@@ -9,7 +9,7 @@
         <hr style="margin: 0px;padding: 10px 0 0 0;"/>
     </div>
     {%  for post in posts %}
-        <div id="{{ posts.index(post) }}" style="display: {% if (posts.index(post) ) >= 3 %} none {% endif %}">
+        <div id="{{ posts.index(post) }}" style="display: {% if (posts.index(post) ) >= 5 %} none {% endif %}">
             <div class="col-md-12 post-hover">
                 <div class="web-article">
                     <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
@@ -53,7 +53,7 @@
     {{ super() }}
     <script type="application/javascript">
         var counts = {{ posts_amount }}
-        var current_count = 3
+        var current_count = 5
         var page_count = 1
         function articles_load(){
             if ($('#btn-load').text() == ''){

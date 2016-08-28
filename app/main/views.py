@@ -129,3 +129,8 @@ def links():
 @main.route('/shares')
 def shares():
     return render_template("shares.html")
+
+#资源文章
+@main.route('/technology')
+def technology():
+    return render_template("technology.html")
