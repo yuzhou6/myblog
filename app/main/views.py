@@ -8,12 +8,19 @@ from .forms import WriteAticleForm
 from ..models import User, Post, Permission, Category
 from datetime import datetime
 import time
+import json
 
 @main.route('/', methods=['GET','POST'])
 def index():
     page = request.args.get('page', 1, type = int)
-    posts = Post.query.order_by(Post.timestamp.desc()).all()    # desc() 降序排序，从后往前
+    posts = Post.query.order_by(Post.timestamp.desc())   # desc() 降序排序，从后往前
     posts_amount = Post.query.order_by(Post.timestamp.desc()).count()
+    session['posts_amount'] = posts_amount
+    session['posts_amount_flag'] = current_app.config['BLOG_POSTS_PER_PAGE']
+    if posts_amount > session['posts_amount_flag']:
+        posts = posts[:session['posts_amount_flag']]
+    else:
+        posts = posts.all()
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['BLOG_POSTS_PER_PAGE'],
         error_out=False)
@@ -21,6 +28,47 @@ def index():
                            posts_amount = posts_amount,
                            redir = '.index', page = page,
                            pagination = pagination)
+
+#得到部分文章
+@main.route('/get-parts-article')
+def get_parts_article():
+    if session['posts_amount_flag'] + 3 <= session['posts_amount']:
+        posts = Post.query.order_by(Post.timestamp.desc())[session['posts_amount_flag']: session['posts_amount_flag'] + 3]  #每次取得的文章数
+        session['posts_amount_flag'] += 3
+        posts_lists = []
+        for post in posts:
+            post_list = {
+                'title': post.title,
+                'id': post.id,
+                'imestamp': post.timestamp,
+                'username': post.author.username,
+                'posts_amount': 0,
+                'post_expect': post.post_expect,
+                'category': post.category.category
+            }
+            posts_lists.append(post_list)
+        length = len(posts_lists)
+    elif session['posts_amount'] - session['posts_amount_flag'] < 3:
+        count = session['posts_amount'] - session['posts_amount_flag']
+        posts = Post.query.order_by(Post.timestamp.desc())[session['posts_amount_flag']: session['posts_amount_flag'] + count]  #每次取得的文章数
+        session['posts_amount_flag'] += count
+        posts_lists = []
+        for post in posts:
+            post_list = {
+                'title': post.title,
+                'id': post.id,
+                'imestamp': post.timestamp,
+                'username': post.author.username,
+                'posts_amount': 0,
+                'post_expect': post.post_expect,
+                'category': post.category.category
+            }
+            posts_lists.append(post_list)
+        length = len(posts_lists)
+    else:
+        posts_lists = {}
+        length = -1
+    return jsonify({'posts': posts_lists, 'length': length})
 
 
 #编辑更新文章
@@ -67,6 +115,7 @@ def user(username):
     user = User.query.filter_by(username = username).first()
     if user is None:
         abort(404)
+
     return render_template("user.html")
 
 #写文章
@@ -109,6 +158,10 @@ def delete_article(id):
             db.session.rollback()
             flash(u'删除文章失败')
     return redirect(request.args.get('next') or url_for('main.index'))
+
+@main.route('/upload_file',methods=['POST'])
+def upload_file():
+    return "hel"
 
 #关于我
 @main.route('/about-me')

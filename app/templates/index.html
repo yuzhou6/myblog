@@ -9,37 +9,41 @@
         <hr style="margin: 0px;padding: 10px 0 0 0;"/>
     </div>
     {%  for post in posts %}
-        <div id="{{ posts.index(post) }}" style="display: {% if (posts.index(post) ) >= 5 %} none {% endif %}">
-            <div class="col-md-12 post-hover">
-                <div class="web-article">
-                    <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
-                    <div class="meta-box">
-                        <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
-                        <span class="m-post-date"><i class="fa fa-user"></i> 作者：{{ post.author.username }}</span>
-                        <span class="m-post-coments"><i class="fa fa-comments"></i> {{ posts_amount }} 条评论</span>
-                    </div>
-                    <div class="post-expect">
-                        <p>{{ post.post_expect }}</p>
-                    </div>
-                    <div class="meta-box">
-                        <span class="m-post-cat"><i class="fa fa-navicon"></i>
-                            分类:{{ post.category }}
-                        </span>
-                        <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
-                    </div>
+        <div class="col-md-12 post-hover">
+            <div class="web-article">
+                <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
+                <div class="meta-box">
+                    <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
+                    <span class="m-post-date"><i class="fa fa-user"></i> 作者：{{ post.author.username }}</span>
+                    <span class="m-post-coments"><i class="fa fa-comments"></i> {{ posts_amount }} 条评论</span>
+                </div>
+                <div class="post-expect">
+                    <p>{{ post.post_expect }}</p>
+                </div>
+                <div class="meta-box">
+                    <span class="m-post-cat"><i class="fa fa-navicon"></i>
+                        分类:{{ post.category }}
+                    </span>
+                    <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
                 </div>
             </div>
         </div>
     {% endfor %}
-    <div class="col-md-12" style="margin-top: 60px;">
+    <div id="get_article">
+
+    </div>
+    <div class="col-md-12" style="margin: 60px 0 20px;;">
         <div style="margin: 0 200px 0 200px;">
-            <button class="btn btn-success" style="width: 100%" onclick="articles_load();">
+            <button class="btn btn-success" style="width: 100%" onclick="test();">
                 <i class="fa fa-3x" id="icon-load"></i>
                 <span class="fa fa-3x" style="font-size: 20px;padding: 11px 0 11px 0" id="btn-load">查看更多</span>
             </button>
         </div>
-    </div>
 
+    </div>
+    <div class="col-md-12" >
+        <a target="_blank" href="" class="copyright-link">lucat博客 20013~2016 &copy; 站长邮箱:lucat369@163.com</a>
+    </div>
     <!-- 用分页 1,2,3,4 的形式 -->
 {#    {% if pagination %}#}
 {#        <div class="pagination">#}
@@ -47,35 +51,50 @@
 {#        </div>#}
 {#    {% endif %}#}
 
+
 {% endblock %}
 
 {% block script %}
     {{ super() }}
     <script type="application/javascript">
-        var counts = {{ posts_amount }}
-        var current_count = 5
-        var page_count = 1
-        function articles_load(){
-            if ($('#btn-load').text() == ''){
-                $('#btn-load').text('查看更多')
-                $('#icon-load').removeClass('fa-spinner fa-spin')
-            }else {
-                $('#btn-load').text('')
-                $('#icon-load').addClass('fa-spinner fa-spin')
-                setTimeout(function () {
-                    if (current_count < {{ posts_amount }}) {
-                        for (var i = 0; i < page_count; i++) {
-                            document.getElementById(current_count).style.display = 'block'
-                            current_count++
-                        }
-                        $('#btn-load').text('查看更多')
-                        $('#icon-load').removeClass('fa-spinner fa-spin')
-                    }else{
-                        $('#btn-load').text('已无更多文章')
-                        $('#icon-load').removeClass('fa-spinner fa-spin')
+        function test() {
+            $.ajax({
+                url:"/get-parts-article",
+                dataType:'json',
+                success:function (data) {
+                        $('#btn-load').text('')
+                        $('#icon-load').addClass('fa-spinner fa-spin')
+                        setTimeout(function () {
+                            $('#btn-load').text('已无更多文章')
+                            $('#icon-load').removeClass('fa-spinner fa-spin')
+                            for(var i = 0; i < data.length;i++) {
+                                var articlebody = "<div class='col-md-12 post-hover'>  \
+                                                    <div class='web-article'>   \
+                                                        <h2 class='post-title'><a style='color: #dd4814;' href='/article/" + data.posts[i]['id'] + "'>" + data.posts[i]['title'] + "</a></h2> \
+                                                        <div class='meta-box'> \
+                                                            <span class='m-post-date'><i class='fa fa-calendar'></i> &nbsp;" + data.posts[i]['imestamp'] + "</span> \
+                                                            <span class='m-post-date'><i class='fa fa-user'></i> 作者：" + data.posts[i]['username'] + "</span> \
+                                                            <span class='m-post-coments'><i class='fa fa-comments'></i> 0 条评论</span> \
+                                                        </div> \
+                                                        <div class='post-expect'> \
+                                                            <p>" + data.posts[i]['post_expect'] + "</p> \
+                                                        </div> \
+                                                        <div class='meta-box'> \
+                                                            <span class='m-post-cat'><i class='fa fa-navicon'></i> \
+                                                                分类:" + data.posts[i]['category'] + " \
+                                                            </span> \
+                                                            <span class='m-post-sorts'><i class='fa fa-tags'></i>标签:总结</span> \
+                                                        </div> \
+                                                    </div> \
+                                                </div>"
+                                $("#get_article").append(articlebody)
+                                $('#btn-load').text('查看更多')
+                                $('#icon-load').removeClass('fa-spinner fa-spin')
+                            }
+                        }, 500)
                     }
-                },500)
-            }
+                }
+            )
         }
     </script>
 {% endblock %}

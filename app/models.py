@@ -186,7 +186,10 @@ class Category(db.Model):
         categorys = [
             u'博客技术',
             u'生活感悟',
-            u'默认分类'
+            u'杂乱文章',
+            u'python',
+            u'C#',
+            u'前端语言'
         ]
         for c in categorys:
             category = Category.query.filter_by(category = c).first()
