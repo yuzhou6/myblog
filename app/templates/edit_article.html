@@ -47,13 +47,16 @@
 </script>
 {% endblock %}
 
+{% block navbar_picture %}
 
-{% block page_content %}
+{% endblock %}
+
+{% block write_article %}
     {{ super() }}
 
 
 {% if current_user.is_authenticated %}
-      <div class="col-md-12" style="margin-bottom: 20px;">
+      <div class="col-md-11" style="margin-bottom: 20px;margin-left: 100px;">
         <form action="/edit-article/{{ post.id }}" method="post" class="form-group">
             <div style="display: none">
                 {{ form.csrf_token() }}

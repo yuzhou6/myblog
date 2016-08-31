@@ -90,19 +90,17 @@
 
 {% block content %}
     <div class="web-content web-content-before" id="web-content">
-        <div class="row">
-        <div class='col-md-12 col-sm-12'>
+        <div class='col-md-12 col-sm-12' style="padding-left: 4px;">
             {% for message in get_flashed_messages() %}
             <div class="alert alert-warning">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {{ message }}
             </div>
             {% endfor %}
+        {% block page_content %}{% endblock %}
         </div>
     </div>
-
-    {% block page_content %}{% endblock %}
-    </div>
+    {% block write_article %}{% endblock %}
 {% endblock %}
 
 

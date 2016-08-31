@@ -84,7 +84,7 @@ def edit_article(id):
         post.category = Category.query.get(form.category.data)
         post.post_expect = form.post_expect.data
         post.author = current_user._get_current_object()  # 根据 model里的这个地方，笔记奇特
-        post.timestamp = time.strftime("%Y-%m-%d %X", time.localtime())
+        # post.timestamp = time.strftime("%Y-%m-%d %X", time.localtime())
 
         db.session.add(post)
         try:

@@ -38,17 +38,9 @@
 
         $('#abc').click(function () {
             var msg = $('.editormd-preview').html()
-{#            var msg = $("#cd").val()#}
             $('#body_html').val(msg)
         })
-{##}
-{#            $('#a').click(function () {#}
-{#            alert("bbb")#}
-{#            var msg = $('.editormd-preview').html()#}
-{#            var msg = $("#cd").val()#}
-{##}
-{#            $('#body_html').val(msg)#}
-{#        })#}
+
     })
 
 
@@ -56,13 +48,14 @@
 </script>
 {% endblock %}
 
+{% block navbar_picture %} {% endblock %}
 
-{% block page_content %}
+{% block write_article %}
     {{ super() }}
 
 
 {% if current_user.is_authenticated %}
-      <div class="col-md-12" style="margin-bottom: 20px;">
+      <div class="col-md-11" style="margin-bottom: 20px;margin-left: 100px;" id="wirte-article">
         <form action="/write-article" method="post" class="form-group">
             <div style="display: none">
                 {{ form.csrf_token() }}
@@ -91,5 +84,5 @@
     </div>
 {% endif %}
 {#    <button id ='a' class="btn btn-default">点</button>#}
-    
+
 {% endblock %}
