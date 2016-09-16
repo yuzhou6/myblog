@@ -1,3 +1,119 @@
 {% extends "base.html" %}
 
 {% block title %} 资源分享 {% endblock %}
+
+{% block style %}
+    <style>
+        blockquote {
+            background:#f9f9f9;
+            border-left:3px solid #00d95a;
+            line-height: 2.0em;
+            font-size: 16px;
+            margin: 0;
+            padding:.5em 10px;
+            quotes:"\201C""\201D""\2018""\2019";
+        }
+
+        blockquote p {
+            display:inline;
+        }
+
+        .mylogo{
+            border: 2px solid #d28445;
+            margin: 10px 0 10px 0;
+            padding: 4px;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="panel panel-info" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+
+<div class="panel panel-success" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+
+<div class="panel panel-danger" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+
+<div class="panel panel-warning" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+
+<div class="panel panel-default" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+
+<div class="panel panel-primary" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+  </div>
+</div>
+{% endblock %}
+
+{% block navbar_picture %}
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+        <img src="" alt="">
+            <div class="pic-box-font">
+            <h3>新年寄语</h3>
+            <p>潜心磨剑,藏器于身</p>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    {{ super() }}
+    <script type="application/javascript">
+        $(function () {
+             setTimeout(function () {
+                 swal({
+                    title: "更多资源筹建中",
+                    text: "近期上线，尽请期待",
+                    confirmButtonText: "确定",
+                    confirmButtonColor: "#ec6c62" ,
+                    imageUrl: "{{ url_for('static', filename='sweetAlert/images/thumbs-up.jpg') }}"
+                });
+             },1000)
+        })
+    </script>
+{% endblock %}

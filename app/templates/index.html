@@ -3,13 +3,27 @@
 
 {% block title %} 首页 {% endblock %}
 
+{% block style %}
+    {{ super() }}
+    <style>
+
+    </style>
+{% endblock %}
+
 {% block page_content %}
-    <div class="col-md-12" id="page_content">
-        <p class="web-content-title">推荐阅读</p>
-        <hr style="margin: 0px;padding: 10px 0 0 0;"/>
+    <div class="col-md-12" id="page_content" style="margin: 10px 0 0 0;">
+        <span class="web-content-title" style="display: inline;"><span style="float: left">推荐阅读</span>
+            <form class="form-horizontal form-inline" style="display: inline; float: right" class="wrapper">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="search" id="search">
+                    <button class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+			</form>
+        </span>
     </div>
     {%  for post in posts %}
         <div class="col-md-12 post-hover">
+        <hr style="margin: 0px;padding: 10px 0 0 0;"/>
             <div class="web-article">
                 <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
                 <div class="meta-box">
@@ -44,19 +58,41 @@
     <div class="col-md-12" >
         <a target="_blank" href="" class="copyright-link">lucat博客 20013~2016 &copy; 站长邮箱:lucat369@163.com</a>
     </div>
-    <!-- 用分页 1,2,3,4 的形式 -->
-{#    {% if pagination %}#}
-{#        <div class="pagination">#}
-{#            {{ macros.pagination_widget(pagination, '.index') }}#}
-{#        </div>#}
-{#    {% endif %}#}
-
 
 {% endblock %}
 
+{% block navbar_picture %}
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+        <img src="" alt="">
+            <div class="pic-box-font">
+            <h3>新年寄语</h3>
+            <p>潜心磨剑,藏器于身</p>
+        </div>
+    </div>
+{% endblock %}
+
+
 {% block script %}
     {{ super() }}
+
+
     <script type="application/javascript">
+
+        var placeholderText = [
+                "Where would you like to go?",
+                "Beijing?",
+                "Paris?",
+                "Chongqi?",
+                "London?",
+                "New York?",
+                "San Francisco?"
+              ];
+            //初始化插件
+        $('#search').placeholderTypewriter({
+            text: placeholderText,
+            pause: 1500
+        });
+
         function test() {
             $.ajax({
                 url:"/get-parts-article",
@@ -67,6 +103,18 @@
                         setTimeout(function () {
                             $('#btn-load').text('已无更多文章')
                             $('#icon-load').removeClass('fa-spinner fa-spin')
+                            if (data.length == 0) {
+                                    swal({
+                                        title: "没有更多文章了",
+                                        text: "Thanks for your reading",
+                        {#                type: "warning",#}
+                        {#                showCancelButton: true,#}
+                        {#                closeOnConfirm: false,#}
+                                        confirmButtonText: "确定",
+                                        confirmButtonColor: "#ec6c62" ,
+                                        imageUrl: "{{ url_for('static', filename='sweetAlert/images/thumbs-up.jpg') }}"
+                                    });
+                                }
                             for(var i = 0; i < data.length;i++) {
                                 var articlebody = "<div class='col-md-12 post-hover'>  \
                                                     <div class='web-article'>   \

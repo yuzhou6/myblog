@@ -1,3 +1,109 @@
 {% extends "base.html" %}
 
 {% block title %} 给我留言 {% endblock %}
+
+{% block style %}
+    {{ super() }}
+    <style>
+        blockquote {
+            background:#f9f9f9;
+            border-left:3px solid #00d95a;
+            line-height: 2.0em;
+            font-size: 16px;
+            margin: 0;
+            padding:.5em 10px;
+            quotes:"\201C""\201D""\2018""\2019";
+        }
+
+        blockquote p {
+            display:inline;
+        }
+        .myimg {
+            border: 2px solid #d28445;
+            margin: 10px 0 10px 0;
+            padding: 4px;
+            width: 610px;
+            height: 360px;
+        }
+
+        .msgcontent{
+            margin-top: 20px;
+            line-height: 2.5em;
+            font-size: 15px;
+        }
+
+        #mybtn {
+            font-size: 14px;
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <div class="col-md-12" id="page_content" style="margin: 10px 0 0 0;">
+        <span class="web-content-title" style="display: inline;"><span style="float: left"><h4 style="color: #A92733;">给我留言</h4></span>
+        </span>
+    </div>
+    <div class="col-md-12" >
+        <hr style="margin: 0px;padding: 10px 0 10px 0;"/>
+        <h3 style="color: #A92733;">给我留言</h3>
+        <blockquote>
+            这里记录着我发现的，我思考的，我寻找的。<br/>
+            很高兴和你成为朋友，关注生活，关注互联网。生活，远远比你想象的精彩。
+        </blockquote>
+        <img class="myimg" src="{{ url_for('static', filename='images/2.jpg') }}" alt=""></br>
+        <span class="msgcontent">
+            如果你急于联系我，不妨给我写信。</br>
+        </span>
+        <button id="mybtn" onclick="show_email()" class="btn btn-default" style="background-color: #dd4814;color: white;"><i class="fa fa-envelope-o" aria-hidden="true"></i> 我的邮箱</button>
+        &nbsp;&nbsp;
+        <button id="mybtn" onclick="show_email()" class="btn btn-default" style="background-color: #dd4814;color: white;"><i class="fa fa-weibo" aria-hidden="true"></i> 我的微博</button>
+        <span class="msgcontent">
+            <br/>也可以在这留下你的足迹，留言内容，我会定期看到
+        </span>
+        <div class="ds-thread" data-thread-key="" data-title="留言" data-url="{{ url_for('main.give_me_msg') }}">
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block navbar_picture %}
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+        <img src="" alt="">
+            <div class="pic-box-font">
+            <h3>新年寄语</h3>
+            <p>潜心磨剑,藏器于身</p>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    {{ super() }}
+
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"lucat-369"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                 || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+
+            function show_email(){
+                swal({
+                        title: "",
+                        text: "我的微博：",
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#ec6c62" ,
+                        imageUrl: "{{ url_for('static', filename='sweetAlert/images/thumbs-up.jpg') }}"
+                    });
+            }
+            </script>
+        <!-- 多说公共JS代码 end -->
+
+{% endblock %}

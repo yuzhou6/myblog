@@ -2,3 +2,68 @@
 
 {% block title %} 关于博主 {% endblock %}
 
+{% block style %}
+    {{ super() }}
+    <style>
+        blockquote {
+            background:#f9f9f9;
+            border-left:3px solid #00d95a;
+            line-height: 2.0em;
+            font-size: 16px;
+            margin: 0;
+            padding:.5em 10px;
+            quotes:"\201C""\201D""\2018""\2019";
+        }
+
+        blockquote p {
+            display:inline;
+        }
+
+        .mylogo{
+            border: 2px solid #d28445;
+            margin: 10px 0 10px 0;
+            padding: 4px;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+<div class="panel panel-success" style="margin: 50px 20px 0 0">
+  <div class="panel-heading"> <center><h4><i class="fa fa-tags" aria-hidden="true"></i> 关于博主</h4></center></div>
+  <div class="panel-body panel-info">
+      <blockquote>
+          <img class="mylogo" src="{{ url_for('static',filename='images/logo.jpg') }}" alt=""><br/>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 外号：少寨主</p>
+      </blockquote>
+      <blockquote>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 喜爱：看话剧，睡觉</p>
+      </blockquote>
+      <blockquote>
+          <p> <i class="fa fa-github-alt" aria-hidden="true"></i> 目标：立志左一个又会写诗，又会敲代码的程序员</p>
+      </blockquote>
+      <blockquote>
+          <p> <i class="fa fa-envelope-o" aria-hidden="true"></i> 联系方式：lucat9527@gmail.com</p>
+      </blockquote>
+      <blockquote>
+          <p> <i class="fa fa-github" aria-hidden="true"></i> GitHub地址: <a href="https://github.com/yuzhou6">https://github.com/yuzhou6</a></p>
+      </blockquote>
+  </div>
+{#  <div class="panel-footer"></div>#}
+</div>
+{% endblock %}
+
+{% block navbar_picture %}
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+        <img src="" alt="">
+            <div class="pic-box-font">
+            <h3>新年寄语</h3>
+            <p>潜心磨剑,藏器于身</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+{% endblock %}
