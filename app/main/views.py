@@ -187,3 +187,14 @@ def shares():
 @main.route('/technology')
 def technology():
     return render_template("technology.html")
+
+
+#单个种类文章展示
+@main.route('/<category>')
+def category(category):
+    category = Category.query.filter_by(category= category).first()
+    if category:
+        posts = category.post           #得到所有文章
+        return render_template('category.html', posts = posts, category = category)
+    else:
+        return abort(404)

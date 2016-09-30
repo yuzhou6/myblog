@@ -7,37 +7,37 @@
         <section id="gallery-wrapper">
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="...">
-            <h1><a href="#">Python</a></h1>
-            <p>Life is short, I use Python 1</p>
+            <h1><a href="{{ url_for('main.category',category = 'python') }}">Python</a></h1>
+            <p>Life is short, I use Python </p>
           </article>
 
           <article class="white-panel">
             <img  src="{{ url_for('static', filename='images/3.jpg') }}" alt="...">
-            <h1><a href="#">C#</a></h1>
+            <h1><a href="{{ url_for('main.category',category = 'C#') }}">C#</a></h1>
             <p>C#从入门到放弃</p>
           </article>
 
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/4.jpg') }}" alt="...">
-            <h1><a href="#">MySQL</a></h1>
-            <p>从删库到跑路 3</p>
+            <h1><a href="{{ url_for('main.category',category = 'python') }}">MySQL</a></h1>
+            <p>从删库到跑路 </p>
           </article>
 
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/5.jpg') }}" alt="...">
-            <h1><a href="#">Linux</a></h1>
+            <h1><a href="{{ url_for('main.category',category = '生活感悟') }}">Linux</a></h1>
             <p>从入门到腰椎病康复</p>
           </article>
 
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/6.jpg') }}" alt="...">
-            <h1><a href="#">Web前端</a></h1>
+            <h1><a href="{{ url_for('main.category',category = 'python') }}">Web前端</a></h1>
             <p>从入门到出家</p>
           </article>
 
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/7.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
+            <h1><a href="{{ url_for('main.category',category = 'python') }}"></a></h1>
             <p>从入门到改行 </p>
           </article>
             <article class="white-panel">
@@ -48,7 +48,7 @@
 
           <article class="white-panel">
             <img src="{{ url_for('static', filename='images/9.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
+            <h1><a href="{{ url_for('main.category',category = 'python') }}"></a></h1>
             <p>心得感悟</p>
           </article>
 
@@ -63,7 +63,7 @@
 {% endblock %}
 
 {% block navbar_picture %}
-    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('https://ws1.sinaimg.cn/large/005EFdvdgw1f8bz24o3nmj30980dwmxy.jpg');">
         <img src="" alt="">
             <div class="pic-box-font">
             <h3>新年寄语</h3>

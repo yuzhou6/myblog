@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} {{ category }} {% endblock %}
+
+{% block style %}
+    {{ super() }}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <div class="col-md-12" id="page_content" style="margin: 10px 0 0 0;">
+        <span class="web-content-title" style="display: inline;"><span style="float: left">分类专题：{{ category }}</span>
+            <form class="form-horizontal form-inline" style="display: inline; float: right" class="wrapper">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="search" id="search">
+                    <button class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+			</form>
+        </span>
+    </div>
+    {%  for post in posts %}
+        <div class="col-md-12 post-hover">
+        <hr style="margin: 0px;padding: 10px 0 0 0;"/>
+            <div class="web-article">
+                <h2 class="post-title"><a style="color: #dd4814;" href="{{ url_for('main.show_article', id = post.id ) }}">{{ post.title }}</a></h2>
+                <div class="meta-box">
+                    <span class="m-post-date"><i class="fa fa-calendar"></i> &nbsp;{{ post.timestamp }}</span>
+                    <span class="m-post-date"><i class="fa fa-user"></i> 作者：{{ post.author.username }}</span>
+                    <span class="m-post-coments"><i class="fa fa-comments"></i> {{ posts_amount }} 条评论</span>
+                </div>
+                <div class="post-expect">
+                    <p>{{ post.post_expect }}</p>
+                </div>
+                <div class="meta-box">
+                    <span class="m-post-cat"><i class="fa fa-navicon"></i>
+                        分类:{{ post.category }}
+                    </span>
+                    <span class="m-post-sorts"><i class="fa fa-tags"></i>标签:总结</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div id="get_article">
+
+    </div>
+    <div class="col-md-12" style="margin: 60px 0 20px;;">
+        <div style="margin: 0 200px 0 200px;">
+            <button class="btn btn-success" style="width: 100%" onclick="test();">
+                <i class="fa fa-3x" id="icon-load"></i>
+                <span class="fa fa-3x" style="font-size: 20px;padding: 11px 0 11px 0" id="btn-load">查看更多</span>
+            </button>
+        </div>
+
+    </div>
+    <div class="col-md-12" >
+        <a target="_blank" href="" class="copyright-link">lucat博客 20013~2016 &copy; 站长邮箱:lucat369@gmail.com</a>
+    </div>
+
+{% endblock %}
+
+{% block navbar_picture %}
+    <div class="web-pic-box" id="web-pic-box" style="background-image: url('http://ocq1wrup5.bkt.clouddn.com/1.jpg');">
+        <img src="" alt="">
+            <div class="pic-box-font">
+            <h3>新年寄语</h3>
+            <p>潜心磨剑,藏器于身</p>
+        </div>
+    </div>
+{% endblock %}
