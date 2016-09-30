@@ -5,58 +5,58 @@
 {% block page_content %}
     <div class="" style="overflow: hidden">
         <section id="gallery-wrapper">
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="...">
-            <h1><a href="{{ url_for('main.category',category = 'python') }}">Python</a></h1>
-            <p>Life is short, I use Python </p>
-          </article>
-
-          <article class="white-panel">
-            <img  src="{{ url_for('static', filename='images/3.jpg') }}" alt="...">
-            <h1><a href="#">C#</a></h1>
-            <p>C#从入门到放弃</p>
-          </article>
-
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/4.jpg') }}" alt="...">
-            <h1><a href="#">MySQL</a></h1>
-            <p>从删库到跑路 </p>
-          </article>
-
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/5.jpg') }}" alt="...">
-            <h1><a href="{{ url_for('main.category',category = '生活感悟') }}">Linux</a></h1>
-            <p>从入门到腰椎病康复</p>
-          </article>
-
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/6.jpg') }}" alt="...">
-            <h1><a href="#">Web前端</a></h1>
-            <p>从入门到出家</p>
-          </article>
-
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/7.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
-            <p>从入门到改行 </p>
-          </article>
             <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/8.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
-            <p>从入门到出轨</p>
-          </article>
+                <img src="{{ url_for('static', filename='images/2.jpg') }}" alt="...">
+                <h1><a href="#">Python</a></h1>
+                <p>Life is short, I use Python </p>
+            </article>
 
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/9.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
-            <p>心得感悟</p>
-          </article>
+            <article class="white-panel">
+                <img  src="{{ url_for('static', filename='images/3.jpg') }}" alt="...">
+                <h1><a href="#">C#</a></h1>
+                <p>C#从入门到放弃</p>
+            </article>
 
-          <article class="white-panel">
-            <img src="{{ url_for('static', filename='images/10.jpg') }}" alt="...">
-            <h1><a href="#"></a></h1>
-            <p>错误总结</p>
-          </article>
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/4.jpg') }}" alt="...">
+                <h1><a href="#">MySQL</a></h1>
+                <p>从删库到跑路 </p>
+            </article>
+
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/5.jpg') }}" alt="...">
+                <h1><a href="{{ url_for('main.category',category = '生活感悟') }}">Linux</a></h1>
+                <p>从入门到腰椎病康复</p>
+            </article>
+
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/6.jpg') }}" alt="...">
+                <h1><a href="#">Web前端</a></h1>
+                <p>从入门到出家</p>
+            </article>
+
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/7.jpg') }}" alt="...">
+                <h1><a href="#"></a></h1>
+                <p>从入门到改行 </p>
+            </article>
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/8.jpg') }}" alt="...">
+                <h1><a href="#"></a></h1>
+                <p>从入门到出轨</p>
+            </article>
+
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/9.jpg') }}" alt="...">
+                <h1><a href="#"></a></h1>
+                <p>心得感悟</p>
+            </article>
+
+            <article class="white-panel">
+                <img src="{{ url_for('static', filename='images/10.jpg') }}" alt="...">
+                <h1><a href="#"></a></h1>
+                <p>错误总结</p>
+            </article>
 
         </section>
     </div>
@@ -65,7 +65,7 @@
 {% block navbar_picture %}
     <div class="web-pic-box" id="web-pic-box" style="background-image: url('https://ws1.sinaimg.cn/large/005EFdvdgw1f8bz24o3nmj30980dwmxy.jpg');">
         <img src="" alt="">
-            <div class="pic-box-font">
+        <div class="pic-box-font">
             <h3>新年寄语</h3>
             <p>潜心磨剑,藏器于身</p>
         </div>
@@ -76,7 +76,7 @@
     {{ super() }}
     <script src="{{ url_for('static', filename='js/pinterest_grid.js') }}"></script>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
         $(function () {
             $("#gallery-wrapper").pinterest_grid({
                 no_columns: 4,
