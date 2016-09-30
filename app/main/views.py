@@ -186,7 +186,7 @@ def shares():
 #资源文章
 @main.route('/technology')
 def technology():
-    return render_template("technology.html")
+    return "hello"
 
 
 #单个种类文章展示
