@@ -8,6 +8,11 @@
 
 编写文章的编辑器使用 Markdown 编辑器，非常适合程序猿写博客。
 
+
+![](http://ww1.sinaimg.cn/large/005EFdvdgy1fdahxh5zypj311y0hpqfi)
+
+![](http://ww1.sinaimg.cn/large/005EFdvdgy1fdahyftjpyj311k0hr40d)
+
 ## 部署准备工作
 
 域名: 阿里云购买，购买后进行域名解析，指向自己的 VPS 的服务器即可
@@ -208,4 +213,7 @@ user = zhou
 ```
 (venv) $ supervisord -c supervisor.conf
 ```
+
+演示地址为：http://oldblog.applinzi.com/ 
+
 **好了，可以关掉 shell 访问你的网站了要是存在什么问题，欢迎留言**
