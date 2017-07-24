@@ -1,1 +1,3 @@
 print("Hei, boy!")
+
+print "some over 0"
